@@ -62,8 +62,8 @@ services:
       TEI_EMBEDDING_ENDPOINT: ${TEI_EMBEDDING_ENDPOINT}
     restart: unless-stopped
   retriever:
-    image: ${REGISTRY:-opea}/retriever-redis:${TAG:-latest}
-    container_name: retriever-redis-server
+    image: ${REGISTRY:-opea}/retriever-neo4j:${TAG:-latest}
+    container_name: retriever-neo4j-server
     depends_on:
       - neo4j-graph-db
     ports:
@@ -73,7 +73,7 @@ services:
       no_proxy: ${no_proxy}
       http_proxy: ${http_proxy}
       https_proxy: ${https_proxy}
-      REDIS_URL: ${REDIS_URL}
+      NEO4J_URL: ${NEO4J_URL}
       INDEX_NAME: ${INDEX_NAME}
       TEI_EMBEDDING_ENDPOINT: ${TEI_EMBEDDING_ENDPOINT}
       HUGGINGFACEHUB_API_TOKEN: ${HUGGINGFACEHUB_API_TOKEN}
@@ -151,7 +151,7 @@ services:
       - neo4j-graph-db
       - tei-embedding-service
       - embedding
-      - dataprep-redis-service
+      - dataprep-neo4j-service
       - retriever
       - tei-reranking-service
       - reranking
